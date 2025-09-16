@@ -19,11 +19,16 @@ function App() {
     setItems(items => items.map(item => item.id === id ? {...item, packed: !item.packed} : item ))
   }
 
+  function handleClearList(){
+    const confirmed = window.confirm("Are you sure? you want to delete all items?")
+    if(confirmed) setItems([])
+  }
+
   return <div className="app">
 
   <Logo  />
   <Form onAddItems={handleAddItems} />
-  <PackingList items={items} onDeleteItem={handleDeleteItem} onHandleToggleItem={handleToggleItem} />
+  <PackingList items={items} onClearList={handleClearList} onDeleteItem={handleDeleteItem} onToggleItem={handleToggleItem} />
   <Stats items={items} />
   
   </div>
@@ -74,7 +79,7 @@ function Form({onAddItems}){
 
   </form>
 }
-function PackingList({items, onDeleteItem, onHandleToggleItem}){
+function PackingList({items, onDeleteItem, onToggleItem, onClearList}){
 
   const [sortBy, setSortBy] = useState('input')
 
@@ -89,7 +94,7 @@ function PackingList({items, onDeleteItem, onHandleToggleItem}){
   return <div  className="list">
     <ul>
 {
-  sortedItems.map(item => <Item onHandleToggleItem={onHandleToggleItem} item={item} key={item.id} onDeleteItem={onDeleteItem} />)
+  sortedItems.map(item => <Item onToggleItem={onToggleItem} item={item} key={item.id} onDeleteItem={onDeleteItem} />)
 } 
 
   </ul>
@@ -102,13 +107,15 @@ function PackingList({items, onDeleteItem, onHandleToggleItem}){
       <option value='packed'> Sort by packed status</option>
     </select>
 
+    <button onClick={onClearList}>Clear list</button>
+
   </div>
   </div>
 }
 
-function Item({item, onDeleteItem, onHandleToggleItem}){
+function Item({item, onDeleteItem, onToggleItem}){
   return <li>
-    <input type="checkbox" value={item.packed} onChange={() => onHandleToggleItem(item.id) } />
+    <input type="checkbox" value={item.packed} onChange={() => onToggleItem(item.id) } />
     <span style={item.packed ? {textDecoration: "line-through"} : {}}>{item.quantity} {item.description}</span>
     <button onClick={() => onDeleteItem(item.id)}>❌</button>
    
