@@ -10,6 +10,8 @@ import {
   SidebarTrigger,
 } from '@/components/ui/sidebar';
 
+import { Toaster } from '@/components/ui/sonner';
+
 const geistSans = Geist({
   variable: '--font-geist-sans',
   subsets: ['latin'],
@@ -47,6 +49,7 @@ export default function RootLayout({
               <h2 className='font-bold'>Dashboard</h2>
             </header>
             <div className='flex flex-1 flex-col gap-4 p-4'>{children}</div>
+            <Toaster position='top-center' />
           </SidebarInset>
         </SidebarProvider>
       </body>
