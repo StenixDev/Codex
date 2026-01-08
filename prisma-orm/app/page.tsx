@@ -1,19 +1,34 @@
-import prisma from '@/lib/prisma';
+import { AppSidebar } from '@/components/app-sidebar';
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbLink,
+  BreadcrumbList,
+  BreadcrumbPage,
+  BreadcrumbSeparator,
+} from '@/components/ui/breadcrumb';
+import { Separator } from '@/components/ui/separator';
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from '@/components/ui/sidebar';
 
-export default async function Home() {
-  const users = await prisma.user.findMany();
+export default function Page() {
   return (
-    <div className='min-h-screen bg-gray-50 flex flex-col items-center justify-center -mt-16'>
-      <h1 className='text-4xl font-bold mb-8 font-[family-name:var(--font-geist-sans)] text-[#333333]'>
-        Superblog
-      </h1>
-      <ol className='list-decimal list-inside font-[family-name:var(--font-geist-sans)]'>
-        {users.map((user) => (
-          <li key={user.id} className='mb-2'>
-            {user.name}
-          </li>
-        ))}
-      </ol>
-    </div>
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className='flex h-16 shrink-0 items-center gap-2 border-b px-4'>
+          <SidebarTrigger className='-ml-1' />
+          <Separator
+            orientation='vertical'
+            className='mr-2 data-[orientation=vertical]:h-4'
+          />
+          <h2 className='font-bold'>Dashboard</h2>
+        </header>
+        <div className='flex flex-1 flex-col gap-4 p-4'>content here</div>
+      </SidebarInset>
+    </SidebarProvider>
   );
 }
