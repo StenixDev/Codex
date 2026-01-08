@@ -13,6 +13,7 @@ import {
   SidebarMenuItem,
   SidebarRail,
 } from '@/components/ui/sidebar';
+import Link from 'next/link';
 
 // This is sample data.
 const data = {
@@ -24,11 +25,11 @@ const data = {
       items: [
         {
           title: 'Posts',
-          url: '#',
+          url: '/dashboard/posts',
         },
         {
           title: 'Users',
-          url: '#',
+          url: '/dashboard/users',
         },
       ],
     },
@@ -39,7 +40,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
     <Sidebar {...props}>
       <SidebarHeader>
-        <h1 className='font-extrabold'>Stenix.dev App</h1>
+        <Link href={'/dashboard'}>
+          <h1 className='font-extrabold'>Stenix.dev App</h1>
+        </Link>
       </SidebarHeader>
       <SidebarContent>
         {/* We create a SidebarGroup for each parent. */}
@@ -51,7 +54,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                 {item.items.map((item) => (
                   <SidebarMenuItem key={item.title}>
                     <SidebarMenuButton asChild isActive={item.isActive}>
-                      <a href={item.url}>{item.title}</a>
+                      <Link href={item.url}>{item.title}</Link>
                     </SidebarMenuButton>
                   </SidebarMenuItem>
                 ))}
