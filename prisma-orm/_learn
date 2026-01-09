@@ -1,1 +1,7 @@
 https://www.prisma.io/docs/guides/nextjs#4-add-a-new-posts-list-page
+
+npx prisma migrate dev --name the-schema-changes // e.g add-table-book
+
+Then generate Prisma Client:
+
+npx prisma generate
