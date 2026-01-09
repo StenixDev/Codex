@@ -5,11 +5,14 @@ import { useContext } from 'react';
 
 function BookForm() {
   const { data } = useContext(BookContext);
-  console.log(data);
+  const dataRes = data[0] || [];
+
+  console.log(dataRes);
+
   return (
     <div
       className={`grid lg:grid-cols-3 gap-8 ${
-        data === null && 'pointer-events-none opacity-50 cursor-not-allowed'
+        !dataRes?.service && 'pointer-events-none opacity-50 cursor-not-allowed'
       }`}
     >
       {/* Left Column - Date & Time */}
@@ -25,18 +28,18 @@ function BookForm() {
               <div>
                 <p className='text-sm text-gray-600'>Selected Service</p>
                 <p className='text-lg font-semibold text-gray-900'>
-                  {data?.service}
+                  {dataRes?.service}
                 </p>
               </div>
               <div className='text-right'>
                 <p className='text-sm text-gray-600'>Duration</p>
                 <p className='text-lg font-semibold text-gray-900'>
-                  {data?.hours}{' '}
-                  {data?.hours > 8
+                  {dataRes?.hours}{' '}
+                  {dataRes?.hours > 8
                     ? 'minutes'
-                    : data?.hours > 1 && data?.hours <= 8
+                    : dataRes?.hours > 1 && dataRes?.hours <= 8
                     ? 'hours'
-                    : data !== null && 'hour'}{' '}
+                    : dataRes !== null && 'hour'}{' '}
                 </p>
               </div>
             </div>
@@ -152,7 +155,7 @@ function BookForm() {
                 Additional Notes
               </label>
               <textarea
-                rows='3'
+                rows={3}
                 placeholder='Any special requests or notes...'
                 className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none'
               ></textarea>

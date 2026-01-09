@@ -8,7 +8,7 @@ import BookProvider from './BookProvider';
 
 export default function BookingSystem() {
   return (
-    <div className='min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100'>
+    <div className='min-h-screen  from-blue-50 to-indigo-100'>
       <Header />
 
       {/* Main Content */}

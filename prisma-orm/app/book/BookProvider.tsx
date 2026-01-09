@@ -9,7 +9,7 @@ type DataProp = {
 };
 
 function BookProvider({ children }: React.PropsWithChildren) {
-  const [data, setData] = useState<DataProp | null>(null);
+  const [data, setData] = useState<DataProp[]>([]);
 
   return (
     <BookContext.Provider value={{ data, setData }}>
