@@ -4,6 +4,7 @@ import BookForm from './_component/book-form';
 import Footer from './_component/footer';
 import Modal from './_component/modal';
 import Hero from './_component/hero';
+import BookProvider from './BookProvider';
 
 export default function BookingSystem() {
   return (
@@ -14,16 +15,18 @@ export default function BookingSystem() {
       <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12'>
         <Hero />
 
-        {/* Services Grid */}
+        <BookProvider>
+          {/* Services Grid */}
 
-        <Services />
+          <Services />
 
-        {/* Booking Form Section */}
+          {/* Booking Form Section */}
 
-        <BookForm />
+          <BookForm />
 
-        {/* Confirmation Modal/Section */}
-        <Modal />
+          {/* Confirmation Modal/Section */}
+          <Modal />
+        </BookProvider>
       </main>
 
       {/* Footer */}

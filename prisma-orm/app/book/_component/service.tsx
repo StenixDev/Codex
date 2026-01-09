@@ -1,6 +1,7 @@
 'use client';
 import { LucideIcon } from 'lucide-react';
-import { useState } from 'react';
+import { BookContext } from '@/app/book/_context/BookContext';
+import { useContext } from 'react';
 
 type ServiceProp = {
   icon?: LucideIcon;
@@ -10,16 +11,20 @@ type ServiceProp = {
 };
 
 function Service({ icon: Icon, service, hours, price }: ServiceProp) {
-  const [serviceInput, setServiceInput] = useState<ServiceProp | null>(null);
+  //   const [serviceInput, setServiceInput] = useState<ServiceProp | null>(null);
+  //   function handleClick() {
+
+  //   }
+
+  const { setData } = useContext(BookContext);
+
   function handleClick() {
-    setServiceInput({
+    setData({
       service,
       hours,
       price,
     });
   }
-
-  console.log(serviceInput);
 
   return (
     <div
