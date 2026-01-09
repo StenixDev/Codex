@@ -1,8 +1,17 @@
+'use client';
 import { Calendar, Clock, User, Mail, Phone, MapPin } from 'lucide-react';
+import { BookContext } from '@/app/book/_context/BookContext';
+import { useContext } from 'react';
 
 function BookForm() {
+  const { data } = useContext(BookContext);
+  console.log(data);
   return (
-    <div className='grid lg:grid-cols-3 gap-8'>
+    <div
+      className={`grid lg:grid-cols-3 gap-8 ${
+        data === null && 'pointer-events-none opacity-50 cursor-not-allowed'
+      }`}
+    >
       {/* Left Column - Date & Time */}
       <div className='lg:col-span-2'>
         <div className='bg-white rounded-xl shadow-lg p-8'>
@@ -16,12 +25,19 @@ function BookForm() {
               <div>
                 <p className='text-sm text-gray-600'>Selected Service</p>
                 <p className='text-lg font-semibold text-gray-900'>
-                  Standard Service
+                  {data?.service}
                 </p>
               </div>
               <div className='text-right'>
                 <p className='text-sm text-gray-600'>Duration</p>
-                <p className='text-lg font-semibold text-gray-900'>1 hour</p>
+                <p className='text-lg font-semibold text-gray-900'>
+                  {data?.hours}{' '}
+                  {data?.hours > 8
+                    ? 'minutes'
+                    : data?.hours > 1 && data?.hours <= 8
+                    ? 'hours'
+                    : data !== null && 'hour'}{' '}
+                </p>
               </div>
             </div>
           </div>
