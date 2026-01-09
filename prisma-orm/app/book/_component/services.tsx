@@ -1,5 +1,6 @@
+'use client';
 import { Calendar, Clock, User, CheckCircle } from 'lucide-react';
-import { useState } from 'react';
+
 import Service from './service';
 
 function Services() {

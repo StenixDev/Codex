@@ -1,15 +1,31 @@
-import { Clock, LucideIcon } from 'lucide-react';
+'use client';
+import { LucideIcon } from 'lucide-react';
+import { useState } from 'react';
 
 type ServiceProp = {
-  icon: LucideIcon;
+  icon?: LucideIcon;
   service: string;
   hours: number;
   price: number;
 };
 
 function Service({ icon: Icon, service, hours, price }: ServiceProp) {
+  const [serviceInput, setServiceInput] = useState<ServiceProp | null>(null);
+  function handleClick() {
+    setServiceInput({
+      service,
+      hours,
+      price,
+    });
+  }
+
+  console.log(serviceInput);
+
   return (
-    <div className='bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition cursor-pointer border-2 border-transparent hover:border-indigo-500'>
+    <div
+      onClick={handleClick}
+      className='bg-white rounded-xl shadow-md p-6 hover:shadow-lg transition cursor-pointer border-2 border-transparent hover:border-indigo-500'
+    >
       <div className='w-12 h-12 bg-indigo-100 rounded-lg flex items-center justify-center mb-4'>
         <Icon className='w-6 h-6 text-indigo-600' />
       </div>
