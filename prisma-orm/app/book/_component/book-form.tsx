@@ -7,7 +7,8 @@ function BookForm() {
   const { data } = useContext(BookContext);
   const dataRes = data[0] || [];
 
-  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+  const [selectedTime, setSelectedTime] = useState<string>('');
+  const [selectedDate, setSelectedDate] = useState<string>('');
 
   const availableTime = [
     '09:00 AM',
@@ -20,14 +21,10 @@ function BookForm() {
     '04:00 PM',
   ];
 
-  console.log(dataRes);
+  console.log(selectedDate, selectedTime);
 
   return (
-    <div
-      className={`grid lg:grid-cols-3 gap-8 ${
-        !dataRes?.service && 'pointer-events-none opacity-50 cursor-not-allowed'
-      }`}
-    >
+    <div className={`grid lg:grid-cols-3 gap-8 `}>
       {/* Left Column - Date & Time */}
       <div className='lg:col-span-2'>
         <div className='bg-white rounded-xl shadow-lg p-8'>
@@ -36,7 +33,12 @@ function BookForm() {
           </h3>
 
           {/* Selected Service Display */}
-          <div className='bg-indigo-50 border border-indigo-200 rounded-lg p-4 mb-6'>
+          <div
+            className={`${
+              !dataRes?.service &&
+              'pointer-events-none opacity-50 cursor-not-allowed'
+            } bg-indigo-50 border border-indigo-200 rounded-lg p-4 mb-6`}
+          >
             <div className='flex items-center justify-between'>
               <div>
                 <p className='text-sm text-gray-600'>Selected Service</p>
@@ -59,13 +61,22 @@ function BookForm() {
           </div>
 
           {/* Date Picker */}
-          <div className='mb-6'>
+          <div
+            className={`${
+              !dataRes?.service &&
+              'pointer-events-none opacity-50 cursor-not-allowed'
+            } mb-6`}
+          >
             <label className='block text-sm font-medium text-gray-700 mb-3'>
               <Calendar className='w-4 h-4 inline mr-2' />
               Choose Date
             </label>
             <input
               type='date'
+              value={selectedDate}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
+                setSelectedDate(e.target.value)
+              }
               className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
             />
           </div>
@@ -76,7 +87,12 @@ function BookForm() {
               <Clock className='w-4 h-4 inline mr-2' />
               Available Times
             </label>
-            <div className='grid grid-cols-4 gap-3'>
+            <div
+              className={`grid grid-cols-4 gap-3 ${
+                !selectedDate &&
+                'pointer-events-none opacity-50 cursor-not-allowed'
+              }`}
+            >
               {availableTime.map((available) => (
                 <button
                   onClick={() => setSelectedTime(available)}
