@@ -2,6 +2,13 @@
 import { Calendar, Clock, User, Mail, Phone, MapPin } from 'lucide-react';
 import { BookContext } from '@/app/book/_context/BookContext';
 import { useContext, useState } from 'react';
+import dayjs from 'dayjs';
+import customParseFormat from 'dayjs/plugin/customParseFormat';
+
+// 2026-01-22 11:00 AM 1769050800000
+// 2026-01-11 04:00 PM 1768118400000
+// 2026-01-11 09:00 AM 1768093200000
+const booked = [1769050800000, 1768118400000, 1768093200000];
 
 function BookForm() {
   const { data } = useContext(BookContext);
@@ -23,6 +30,17 @@ function BookForm() {
 
   console.log(selectedDate, selectedTime);
 
+  dayjs.extend(customParseFormat);
+
+  const timestamp = dayjs(
+    `${selectedDate} ${selectedTime}`,
+    'YYYY-MM-DD h:mm A'
+  ).valueOf();
+
+  console.log(selectedDate, selectedTime, timestamp);
+
+  const availability = booked.includes(timestamp);
+
   return (
     <div className={`grid lg:grid-cols-3 gap-8 `}>
       {/* Left Column - Date & Time */}
@@ -31,7 +49,6 @@ function BookForm() {
           <h3 className='text-2xl font-bold text-gray-900 mb-6'>
             Select Date & Time
           </h3>
-
           {/* Selected Service Display */}
           <div
             className={`${
@@ -59,7 +76,6 @@ function BookForm() {
               </div>
             </div>
           </div>
-
           {/* Date Picker */}
           <div
             className={`${
@@ -80,7 +96,6 @@ function BookForm() {
               className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
             />
           </div>
-
           {/* Time Slots */}
           <div className='mb-6'>
             <label className='block text-sm font-medium text-gray-700 mb-3'>
@@ -110,6 +125,15 @@ function BookForm() {
               ))}
             </div>
           </div>
+          {selectedTime && (
+            <div
+              className={`p-4 font-bold text-center ${
+                availability ? 'bg-red-600' : 'bg-green-400'
+              }`}
+            >
+              {availability ? 'Not Available' : 'Available'}
+            </div>
+          )}
         </div>
       </div>
 
