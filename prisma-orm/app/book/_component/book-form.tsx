@@ -1,11 +1,24 @@
 'use client';
 import { Calendar, Clock, User, Mail, Phone, MapPin } from 'lucide-react';
 import { BookContext } from '@/app/book/_context/BookContext';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 
 function BookForm() {
   const { data } = useContext(BookContext);
   const dataRes = data[0] || [];
+
+  const [selectedTime, setSelectedTime] = useState<string | null>(null);
+
+  const availableTime = [
+    '09:00 AM',
+    '10:00 AM',
+    '11:00 AM',
+    '12:00 PM',
+    '01:00 PM',
+    '02:00 PM',
+    '03:00 PM',
+    '04:00 PM',
+  ];
 
   console.log(dataRes);
 
@@ -64,30 +77,21 @@ function BookForm() {
               Available Times
             </label>
             <div className='grid grid-cols-4 gap-3'>
-              <button className='py-3 px-4 border-2 border-indigo-600 bg-indigo-600 text-white rounded-lg font-medium hover:bg-indigo-700 transition'>
-                09:00 AM
-              </button>
-              <button className='py-3 px-4 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:border-indigo-400 transition'>
-                10:00 AM
-              </button>
-              <button className='py-3 px-4 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:border-indigo-400 transition'>
-                11:00 AM
-              </button>
-              <button className='py-3 px-4 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:border-indigo-400 transition'>
-                12:00 PM
-              </button>
-              <button className='py-3 px-4 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:border-indigo-400 transition'>
-                01:00 PM
-              </button>
-              <button className='py-3 px-4 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:border-indigo-400 transition'>
-                02:00 PM
-              </button>
-              <button className='py-3 px-4 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:border-indigo-400 transition'>
-                03:00 PM
-              </button>
-              <button className='py-3 px-4 border border-gray-300 bg-white text-gray-700 rounded-lg font-medium hover:border-indigo-400 transition'>
-                04:00 PM
-              </button>
+              {availableTime.map((available) => (
+                <button
+                  onClick={() => setSelectedTime(available)}
+                  key={available}
+                  className={`py-3 px-4 border-2 border-indigo-800  text-white rounded-lg font-medium hover:bg-indigo-700 transition cursor-pointer
+                    ${
+                      selectedTime === available
+                        ? 'bg-indigo-700'
+                        : 'bg-indigo-500'
+                    }
+                    `}
+                >
+                  {available}
+                </button>
+              ))}
             </div>
           </div>
         </div>
