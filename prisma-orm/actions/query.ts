@@ -63,3 +63,13 @@ export async function createPost(
     };
   }
 }
+
+export async function handleCustomerDetailsSubmit(formData: FormData) {
+  const rawFormData = {
+    fullName: formData.get('full-name'),
+    email: formData.get('email'),
+    phone: formData.get('tel'),
+    timestamp: formData.get('timestamp'),
+  };
+  console.log(rawFormData);
+}
