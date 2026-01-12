@@ -1,7 +1,7 @@
 'use client';
 import { Calendar, Clock } from 'lucide-react';
 import { BookContext } from '@/app/book/_context/BookContext';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import dayjs from 'dayjs';
 import customParseFormat from 'dayjs/plugin/customParseFormat';
 import CustomerDetails from './customer-details';
@@ -17,7 +17,6 @@ function BookForm() {
 
   const [selectedTime, setSelectedTime] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<string>('');
-
   const availableTime = [
     '09:00 AM',
     '10:00 AM',
@@ -42,7 +41,9 @@ function BookForm() {
 
   console.log(selectedDate, selectedTime, timestamp);
 
-  const availability = booked.includes(tsValue);
+  const availability = booked.includes(tsValue) || false;
+
+  console.log('avaialability', availability);
 
   return (
     <div className={`grid lg:grid-cols-3 gap-8 `}>
@@ -140,7 +141,11 @@ function BookForm() {
         </div>
       </div>
 
-      <CustomerDetails availability={availability} timestamp={timestamp} />
+      <CustomerDetails
+        availability={availability}
+        timestamp={timestamp}
+        total={dataRes.price}
+      />
     </div>
   );
 }

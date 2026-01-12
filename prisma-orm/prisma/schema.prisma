@@ -35,3 +35,15 @@ model xPost {
   title     String
   description   String?
 }
+
+model bookings {
+  id        Int     @id @default(autoincrement())
+  fullname String
+  email String
+  tel String
+  timestamp Int
+  total Int
+
+
+}
+

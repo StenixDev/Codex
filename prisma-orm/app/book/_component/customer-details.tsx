@@ -1,21 +1,24 @@
 'use client';
 
-import { User, Mail, Phone, MapPin } from 'lucide-react';
+import { User, Mail, Phone } from 'lucide-react';
 import { handleCustomerDetailsSubmit } from '@/actions/query';
 
 type CustomerProps = {
   availability: boolean;
-  timestamp?: number;
+  timestamp: number | undefined;
+  total: number;
 };
 
-function CustomerDetails({ availability, timestamp }: CustomerProps) {
+function CustomerDetails({ availability, timestamp, total }: CustomerProps) {
+  console.log(availability);
   return (
     <form action={handleCustomerDetailsSubmit}>
       {/* Right Column - Customer Details */}
       <input type='hidden' name='timestamp' value={timestamp ?? ''} />
       <div
         className={`lg:col-span-1 ${
-          availability && 'pointer-events-none opacity-50 cursor-not-allowed'
+          availability === false &&
+          'pointer-events-none opacity-50 cursor-not-allowed'
         }`}
       >
         <div className='bg-white rounded-xl shadow-lg p-8'>
@@ -30,7 +33,7 @@ function CustomerDetails({ availability, timestamp }: CustomerProps) {
                 Full Name
               </label>
               <input
-                name='full-name'
+                name='fullname'
                 type='text'
                 placeholder='John Doe'
                 className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
@@ -62,45 +65,30 @@ function CustomerDetails({ availability, timestamp }: CustomerProps) {
                 className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent'
               />
             </div>
-
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-2'>
-                <MapPin className='w-4 h-4 inline mr-2' />
-                Location
-              </label>
-              <select className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent'>
-                <option>Select location</option>
-                <option>Downtown Office</option>
-                <option>Uptown Branch</option>
-                <option>Virtual Meeting</option>
-              </select>
-            </div>
-
-            <div>
-              <label className='block text-sm font-medium text-gray-700 mb-2'>
-                Additional Notes
-              </label>
-              <textarea
-                rows={3}
-                placeholder='Any special requests or notes...'
-                className='w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-transparent resize-none'
-              ></textarea>
-            </div>
           </div>
 
           {/* Booking Summary */}
           <div className='mt-6 pt-6 border-t border-gray-200'>
             <div className='flex justify-between items-center mb-4'>
               <span className='text-gray-600'>Subtotal</span>
-              <span className='font-semibold text-gray-900'>$100.00</span>
+              <span className='font-semibold text-gray-900'>${total || 0}</span>
             </div>
             <div className='flex justify-between items-center mb-4'>
               <span className='text-gray-600'>Tax (10%)</span>
-              <span className='font-semibold text-gray-900'>$10.00</span>
+              <span className='font-semibold text-gray-900'>
+                ${total * 0.1 || 0}
+              </span>
             </div>
             <div className='flex justify-between items-center text-lg font-bold mb-6'>
+              <input
+                type='hidden'
+                name='total'
+                value={total + total * 0.1 || 0}
+              />
               <span>Total</span>
-              <span className='text-indigo-600'>$110.00</span>
+              <span className='text-indigo-600'>
+                ${total + total * 0.1 || 0}
+              </span>
             </div>
 
             <button className='w-full bg-indigo-600 text-white py-3 rounded-lg font-semibold hover:bg-indigo-700 transition shadow-lg hover:shadow-xl'>

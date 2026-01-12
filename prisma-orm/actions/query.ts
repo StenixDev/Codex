@@ -66,10 +66,11 @@ export async function createPost(
 
 export async function handleCustomerDetailsSubmit(formData: FormData) {
   const rawFormData = {
-    fullName: formData.get('full-name'),
+    fullName: formData.get('fullname'),
     email: formData.get('email'),
     phone: formData.get('tel'),
     timestamp: formData.get('timestamp'),
+    total: formData.get('total'),
   };
   console.log(rawFormData);
 }
