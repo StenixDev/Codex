@@ -2,6 +2,7 @@
 
 import { User, Mail, Phone } from 'lucide-react';
 import { handleCustomerDetailsSubmit } from '@/actions/query';
+import { cn } from '@/lib/utils';
 
 type CustomerProps = {
   availability: boolean;
@@ -10,16 +11,18 @@ type CustomerProps = {
 };
 
 function CustomerDetails({ availability, timestamp, total }: CustomerProps) {
-  console.log(availability);
+  console.log(availability, 'x');
   return (
     <form action={handleCustomerDetailsSubmit}>
       {/* Right Column - Customer Details */}
       <input type='hidden' name='timestamp' value={timestamp ?? ''} />
       <div
-        className={`lg:col-span-1 ${
-          availability === false &&
-          'pointer-events-none opacity-50 cursor-not-allowed'
-        }`}
+        className={cn(
+          'lg:col-span-1 ',
+          availability !== false
+            ? 'pointer-events-none opacity-50 cursor-not-allowed'
+            : ''
+        )}
       >
         <div className='bg-white rounded-xl shadow-lg p-8'>
           <h3 className='text-2xl font-bold text-gray-900 mb-6'>

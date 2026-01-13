@@ -41,7 +41,7 @@ function BookForm() {
 
   console.log(selectedDate, selectedTime, timestamp);
 
-  const availability = booked.includes(tsValue) || false;
+  const availability = timestamp === undefined || booked.includes(tsValue);
 
   console.log('avaialability', availability);
 
