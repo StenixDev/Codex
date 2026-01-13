@@ -63,14 +63,39 @@ export async function createPost(
     };
   }
 }
+export type FormState = {
+  success?: boolean;
+  errors?: string[];
+};
+export async function submitForm(
+  prevState: FormState,
+  formData: FormData
+): Promise<FormState> {
+  await new Promise((r) => setTimeout(r, 1500)); // simulate request
 
-export async function handleCustomerDetailsSubmit(formData: FormData) {
-  const rawFormData = {
-    fullName: formData.get('fullname'),
-    email: formData.get('email'),
-    phone: formData.get('tel'),
-    timestamp: formData.get('timestamp'),
-    total: formData.get('total'),
-  };
-  console.log(rawFormData);
+  const fullname = formData.get('fullname');
+  const email = formData.get('email');
+  const phone = formData.get('tel');
+  const timestamp = formData.get('timestamp');
+  const total = formData.get('total');
+
+  const errors: string[] = [];
+
+  if (!fullname) {
+    errors.push('Fullname is required');
+  }
+
+  if (!email) {
+    errors.push('Email is required');
+  }
+
+  if (!phone) {
+    errors.push('Phone is required');
+  }
+
+  if (errors.length > 0) {
+    return { success: false, errors };
+  }
+
+  return { success: true };
 }

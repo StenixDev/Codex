@@ -1,8 +1,9 @@
 'use client';
 
 import { User, Mail, Phone } from 'lucide-react';
-import { handleCustomerDetailsSubmit } from '@/actions/query';
+import { submitForm, FormState } from '@/actions/query';
 import { cn } from '@/lib/utils';
+import { useFormState } from 'react-dom';
 
 type CustomerProps = {
   availability: boolean;
@@ -10,11 +11,28 @@ type CustomerProps = {
   total: number;
 };
 
+const initialState: FormState = {
+  errors: [],
+};
+
 function CustomerDetails({ availability, timestamp, total }: CustomerProps) {
-  console.log(availability, 'x');
+  const [state, formAction] = useFormState(submitForm, initialState);
   return (
-    <form action={handleCustomerDetailsSubmit}>
+    <form action={formAction}>
       {/* Right Column - Customer Details */}
+      {/* Display all errors */}
+      {state.errors && state.errors.length > 0 && (
+        <ul className='text-red-500 text-sm list-disc pl-5'>
+          {state.errors.map((error, index) => (
+            <li key={index}>{error}</li>
+          ))}
+        </ul>
+      )}
+
+      {state.success && (
+        <p className='text-green-600 text-sm'>Form submitted successfully</p>
+      )}
+
       <input type='hidden' name='timestamp' value={timestamp ?? ''} />
       <div
         className={cn(
