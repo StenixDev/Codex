@@ -47,3 +47,8 @@ model bookings {
 
 }
 
+
+model Todo {
+  id        Int     @id @default(autoincrement())
+  task String
+}
