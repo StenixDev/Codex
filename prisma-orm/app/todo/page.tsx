@@ -1,33 +1,18 @@
-'use client';
+import { getTask } from '@/actions/todo';
+import TheForm from './_components/form';
 
-import { useActionState } from 'react';
-import { submitTask, ActionState } from '@/actions/todo';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
+async function Page() {
+  const data = await getTask();
 
-const initialState: ActionState = {
-  message: null,
-};
-
-function Todo() {
-  const [state, formAction, isPending] = useActionState(
-    submitTask,
-    initialState
-  );
+  console.log(data);
   return (
     <div>
-      <div>
-        {state.message && (
-          <p className='text-sm text-gray-700'>{state.message}</p>
-        )}
-      </div>
-      <form action={formAction} className='max-w-xl space-y-5'>
-        <Input name='task' placeholder='Enter Task' />
-        <Button className='w-full'>Submit</Button>
-      </form>
+      <TheForm />
       <h1 className='text-3xl font-bold my-5'>Tasks</h1>
-      {isPending ? 'submitting' : 'Submit'}
+      {data.map((data) => (
+        <p key={data.id}>{data.task}</p>
+      ))}
     </div>
   );
 }
-export default Todo;
+export default Page;

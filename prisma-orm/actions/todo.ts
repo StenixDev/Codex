@@ -1,5 +1,9 @@
 'use server';
 
+import prisma from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
+import { redirect } from 'next/navigation';
+
 export type ActionState = {
   message: string | null;
 };
@@ -14,5 +18,17 @@ export async function submitTask(
     return { message: 'tasks is required' };
   }
 
+  await prisma.todo.create({
+    data: {
+      task,
+    },
+  });
+
+  redirect('/todo');
+
   return { message: `The task is, ${task}!` };
+}
+
+export async function getTask() {
+  return prisma.todo.findMany();
 }
