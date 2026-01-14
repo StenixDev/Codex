@@ -1,5 +1,6 @@
 import { getTask } from '@/actions/todo';
 import TheForm from './_components/form';
+import { Modal } from './_components/modal';
 
 async function Page() {
   const data = await getTask();
@@ -10,7 +11,10 @@ async function Page() {
       <TheForm />
       <h1 className='text-3xl font-bold my-5'>Tasks</h1>
       {data.map((data) => (
-        <p key={data.id}>{data.task}</p>
+        <div key={data.id} className='flex justify-between'>
+          <p>{data.task}</p>
+          <Modal task={data.task} />
+        </div>
       ))}
     </div>
   );

@@ -40,3 +40,14 @@ export async function submitTask(
 export async function getTask() {
   return prisma.todo.findMany();
 }
+
+export async function updateTask() {
+  await prisma.todo.update({
+    where: { id: 1 },
+    data: {
+      task: 'updated! - hard coded',
+    },
+  });
+
+  console.log('updating');
+}
