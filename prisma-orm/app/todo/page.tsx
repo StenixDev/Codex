@@ -6,7 +6,7 @@ async function Page() {
 
   console.log(data);
   return (
-    <div>
+    <div className='w-xl mx-auto pt-20'>
       <TheForm />
       <h1 className='text-3xl font-bold my-5'>Tasks</h1>
       {data.map((data) => (
