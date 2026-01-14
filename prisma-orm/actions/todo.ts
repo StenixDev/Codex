@@ -41,6 +41,14 @@ export async function getTask() {
   return prisma.todo.findMany();
 }
 
+export async function findTask(id: number) {
+  return await prisma.todo.findUnique({
+    where: {
+      id,
+    },
+  });
+}
+
 export async function updateTask() {
   await prisma.todo.update({
     where: { id: 1 },

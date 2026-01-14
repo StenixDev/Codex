@@ -1,6 +1,6 @@
 import { getTask } from '@/actions/todo';
 import TheForm from './_components/form';
-import { Modal } from './_components/modal';
+import Link from 'next/link';
 
 async function Page() {
   const data = await getTask();
@@ -13,7 +13,7 @@ async function Page() {
       {data.map((data) => (
         <div key={data.id} className='flex justify-between'>
           <p>{data.task}</p>
-          <Modal task={data.task} />
+          <Link href={`/todo/${data.id}`}>Edit</Link>
         </div>
       ))}
     </div>
