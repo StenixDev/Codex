@@ -1,21 +1,29 @@
 'use server';
 
 import prisma from '@/lib/prisma';
-import { revalidatePath } from 'next/cache';
 import { redirect } from 'next/navigation';
 
 export type ActionState = {
-  message: string | null;
+  success: boolean;
+  errors?: {
+    task?: string;
+  };
 };
 
 export async function submitTask(
   prevState: ActionState,
   formData: FormData
 ): Promise<ActionState> {
-  const task = formData.get('task') as string | null;
+  const task = formData.get('task') as string;
+
+  const errors: ActionState['errors'] = {};
 
   if (!task || task.trim().length === 0) {
-    return { message: 'tasks is required' };
+    errors.task = 'task is invalid';
+  }
+
+  if (Object.keys(errors).length > 0) {
+    return { success: false, errors };
   }
 
   await prisma.todo.create({
@@ -26,7 +34,7 @@ export async function submitTask(
 
   redirect('/todo');
 
-  return { message: `The task is, ${task}!` };
+  return { success: true };
 }
 
 export async function getTask() {
