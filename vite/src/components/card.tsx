@@ -1,3 +1,5 @@
+import { Button } from './ui/button';
+
 type CardProps = {
   title: string;
   description: string;
@@ -16,9 +18,9 @@ function Card({ title, description, image }: CardProps) {
         {title}
       </h1>
       <p className='text-amber-900 text-center'>{description}</p>
-      <button className='bg-blue-500 px-5 py-2 rounded-md my-2 hover:bg-blue-600 cursor-pointer'>
-        Buy Now
-      </button>
+      <Button variant={'destructive'} className='cursor-pointer my-2'>
+        Buy Me
+      </Button>
     </div>
   );
 }
