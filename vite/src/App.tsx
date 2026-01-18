@@ -1,6 +1,6 @@
-import Counter from './Exp/Counter';
+import Queue from './Exp/Queue';
 
 function App() {
-  return <Counter />;
+  return <Queue />;
 }
 export default App;
