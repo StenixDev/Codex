@@ -27,7 +27,10 @@ function FormQueue({ onAdd }: FormQueueProps) {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!name.trim() || !service.trim()) return;
     onAdd({ name, service });
+    setName('');
+    setService('');
   };
 
   return (

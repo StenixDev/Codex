@@ -3,10 +3,24 @@ import FormQueue from '@/components/queue/Form-Queue';
 
 import { useState } from 'react';
 
+type QueueItem = {
+  id: number;
+  name: string;
+  service: string;
+  status: string;
+};
+
 function Queue() {
-  const [queue, setQueue] = useState([]);
-  const addToQueue = (data: { name: string; service: string }) => {
-    console.log(data);
+  const [queue, setQueue] = useState<QueueItem[]>([]);
+  const addToQueue = (customer: { name: string; service: string }) => {
+    setQueue([
+      ...queue,
+      {
+        ...customer,
+        id: Date.now(),
+        status: 'waiting',
+      },
+    ]);
   };
   const updateStatus = (id, status) => {};
   const removeFromQueue = (id) => {};
