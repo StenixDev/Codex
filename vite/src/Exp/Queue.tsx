@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { UserPlus } from 'lucide-react';
 import {
   Select,
   SelectContent,
@@ -9,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { UserPlus } from 'lucide-react';
+import ServiceQueue from '@/components/queue/Service-Queue';
 
 function Queue() {
   return (
@@ -46,7 +47,13 @@ function Queue() {
           </Button>
         </div>
         <div className='flex-7 bg-stone-100 rounded-sm p-3'>
-          <h2 className='text-blue-400 font-bold'>Current Queue</h2>
+          <h2 className='text-blue-400 font-bold text-2xl'>Current Queue</h2>
+
+          <ServiceQueue />
+
+          <ServiceQueue />
+
+          <ServiceQueue />
         </div>
       </div>
     </main>
