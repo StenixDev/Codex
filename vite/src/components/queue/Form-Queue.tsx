@@ -12,13 +12,8 @@ import {
 } from '@/components/ui/select';
 import { useState } from 'react';
 
-type QueueData = {
-  name: string;
-  service: string;
-};
-
 type FormQueueProps = {
-  onAdd: (data: QueueData) => void;
+  onAdd: (data: { name: string; service: string }) => void;
 };
 
 function FormQueue({ onAdd }: FormQueueProps) {
