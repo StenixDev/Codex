@@ -12,15 +12,14 @@ type QueueItem = {
 
 function Queue() {
   const [queue, setQueue] = useState<QueueItem[]>([]);
-  const addToQueue = (customer: QueueItem) => {
-    setQueue([
-      ...queue,
-      {
-        ...customer,
-        id: Date.now(),
-        status: 'waiting',
-      },
-    ]);
+  const addToQueue = (data: { name: string; service: string }) => {
+    const newItem: QueueItem = {
+      id: Date.now(), // or use uuid()
+      name: data.name,
+      service: data.service,
+      status: 'waiting', // default status
+    };
+    setQueue([...queue, newItem]);
   };
   const updateStatus = (id: number, newStatus: string) => {
     setQueue((prev) =>
