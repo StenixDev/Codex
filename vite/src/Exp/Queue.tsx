@@ -12,7 +12,7 @@ type QueueItem = {
 
 function Queue() {
   const [queue, setQueue] = useState<QueueItem[]>([]);
-  const addToQueue = (customer: { name: string; service: string }) => {
+  const addToQueue = (customer: QueueItem) => {
     setQueue([
       ...queue,
       {
@@ -22,8 +22,16 @@ function Queue() {
       },
     ]);
   };
-  const updateStatus = (id, status) => {};
-  const removeFromQueue = (id) => {};
+  const updateStatus = (id: number, newStatus: string) => {
+    setQueue((prev) =>
+      prev.map((status) =>
+        status.id === id ? { ...status, status: newStatus } : status,
+      ),
+    );
+  };
+  const removeFromQueue = (id: number) => {
+    setQueue((prev) => prev.filter((cv) => cv.id !== id));
+  };
 
   return (
     <main className='w-255 mx-auto mt-10'>
