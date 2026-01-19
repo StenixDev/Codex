@@ -43,7 +43,7 @@ function Queue() {
 
       <div className='flex gap-5 '>
         <FormQueue onAdd={addToQueue} />
-        <DisplayQueue queue={queue} />
+        <DisplayQueue queue={queue} onUpdate={updateStatus} />
       </div>
     </main>
   );
