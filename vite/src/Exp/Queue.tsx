@@ -5,7 +5,9 @@ import { useState } from 'react';
 
 function Queue() {
   const [queue, setQueue] = useState([]);
-  const addToQueue = (customer) => {};
+  const addToQueue = (data: { name: string; service: string }) => {
+    console.log(data);
+  };
   const updateStatus = (id, status) => {};
   const removeFromQueue = (id) => {};
 
