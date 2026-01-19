@@ -1,12 +1,12 @@
 import { Button } from '@/components/ui/button';
 import { UserRoundMinus } from 'lucide-react';
-function ServiceQueue() {
+function ServiceQueue({ data }) {
   return (
     <div className='flex justify-between items-center bg-stone-200 my-5 p-5'>
       <div className='flex flex-col'>
-        <span className='font-bold text-xl'>stenix</span>
-        <span>service: payment</span>
-        <span className='text-blue-400 font-bold'>status</span>
+        <span className='font-bold text-xl'>{data.name}</span>
+        <span>service: {data.service}</span>
+        <span className='text-blue-400 font-bold'>{data.status}</span>
       </div>
 
       <div className='flex gap-2'>
