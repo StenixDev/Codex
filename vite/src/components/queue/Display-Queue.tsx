@@ -9,9 +9,10 @@ type QueueItem = {
 type DisplayQueueProps = {
   queue: QueueItem[];
   onUpdate: (id: number, newStatus: string) => void;
+  onDelete: (id: number) => void;
 };
 
-function DisplayQueue({ queue, onUpdate }: DisplayQueueProps) {
+function DisplayQueue({ queue, onUpdate, onDelete }: DisplayQueueProps) {
   console.log(queue);
   return (
     <div className='flex-7 bg-stone-100 rounded-sm p-3'>
@@ -20,7 +21,12 @@ function DisplayQueue({ queue, onUpdate }: DisplayQueueProps) {
       {queue.length > 0 ? (
         <>
           {queue.map((item) => (
-            <ServiceQueue key={item.id} data={item} onUpdate={onUpdate} />
+            <ServiceQueue
+              key={item.id}
+              data={item}
+              onUpdate={onUpdate}
+              onDelete={onDelete}
+            />
           ))}
         </>
       ) : (

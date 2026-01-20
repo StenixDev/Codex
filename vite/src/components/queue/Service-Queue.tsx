@@ -9,9 +9,10 @@ type QueueItem = {
   };
 
   onUpdate: (id: number, newStatus: string) => void;
+  onDelete: (id: number) => void;
 };
 
-function ServiceQueue({ data, onUpdate }: QueueItem) {
+function ServiceQueue({ data, onUpdate, onDelete }: QueueItem) {
   const statusQueue = (status: string) => {
     switch (status) {
       case 'serving':
@@ -52,7 +53,10 @@ function ServiceQueue({ data, onUpdate }: QueueItem) {
             Completed
           </Button>
         )}
-        <Button className='bg-red-500 hover:bg-red-600'>
+        <Button
+          onClick={() => onDelete(data.id)}
+          className='bg-red-500 hover:bg-red-600'
+        >
           <UserRoundMinus />
         </Button>
       </div>
