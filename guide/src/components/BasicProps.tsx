@@ -1,14 +1,20 @@
 import { useState } from 'react';
 
 type ButtonProps = {
-  text: string;
+  text?: string;
   color?: string;
   size?: string;
   onClick?: () => void;
   disabled?: boolean;
 };
 
-function Button({ text, color, size, onClick, disabled }: ButtonProps) {
+function Button({
+  text = 'Default Button',
+  color,
+  size,
+  onClick,
+  disabled,
+}: ButtonProps) {
   return (
     <button
       onClick={onClick}
@@ -17,7 +23,7 @@ function Button({ text, color, size, onClick, disabled }: ButtonProps) {
       px-6 py-2 rounded-lg font-medium transition-all duration-300
       ${size === 'small' ? 'text-sm px-4 py-1' : ''}  
       ${size === 'large' ? 'text-lg px-8 py-3' : ''}  
-      ${color === 'primary' ? 'bg-blue-500 hover:bg-blue-600 text-white' : ''}      
+      ${color === 'primary' || !color ? 'bg-blue-500 hover:bg-blue-600 text-white' : ''}      
       ${color === 'secondary' ? 'bg-gray-500 hover:bg-gray-600 text-white' : ''}      
       ${color === 'danger' ? 'bg-red-500 hover:bg-red-600 text-white' : ''}      
       ${color === 'success' ? 'bg-green-500 hover:bg-green-600 text-white' : ''}      
@@ -48,6 +54,49 @@ function BasicProps() {
             color='primary'
             onClick={() => setClickCount((cv) => cv + 1)}
           />
+
+          <Button
+            text='Secondary Button'
+            color='secondary'
+            onClick={() => setClickCount((cv) => cv + 1)}
+          />
+
+          <Button
+            text='danger Button'
+            color='danger'
+            onClick={() => setClickCount((cv) => cv + 1)}
+          />
+
+          <Button
+            text='Success Button'
+            color='success'
+            onClick={() => setClickCount((cv) => cv + 1)}
+          />
+        </div>
+
+        <div className='flex flex-wrap gap-3'>
+          <Button
+            text='Small Button'
+            color='primary'
+            size='small'
+            onClick={() => setClickCount((cv) => cv + 1)}
+          />
+
+          <Button
+            text='Large Button'
+            color='primary'
+            size='large'
+            onClick={() => setClickCount((cv) => cv + 1)}
+          />
+
+          <Button
+            text='Disabled Button'
+            color='primary'
+            disabled={true}
+            onClick={() => setClickCount((cv) => cv + 1)}
+          />
+
+          <Button />
         </div>
       </div>
     </section>
