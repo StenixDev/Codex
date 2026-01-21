@@ -39,7 +39,9 @@ function Navigation() {
 function AppContent() {
   const isDark = true;
   return (
-    <div className={`min-h-screen bg-gray-800 text-3xl text-white font-bold`}>
+    <div
+      className={`min-h-screen bg-gray-800 text-3xl text-white font-bold p-5`}
+    >
       <Navigation />
       <div className='container mx-auto px-4 py-8'>
         <header
