@@ -40,8 +40,21 @@ type UserProfileCardProps = {
 };
 
 function UserProfileCard({ user, theme, actions }: UserProfileCardProps) {
-  console.log(user, theme, actions);
-  return <div>{user.name}</div>;
+  return (
+    <div className='min-w-60 bg-white text-gray-800 p-5 m-2 text-sm flex flex-col'>
+      <span> username: {user.name}</span>
+      <span>email: {user.email}</span>
+      <span>avatar: {user.role}</span>
+      <span>status: {user.status}</span>
+      <span>
+        {Object.entries(user.stats).map(([key, value]) => (
+          <div>
+            {key}: {value}
+          </div>
+        ))}
+      </span>
+    </div>
+  );
 }
 
 function ComplexProps() {
@@ -116,9 +129,11 @@ function ComplexProps() {
   return (
     <div>
       <h1>ComplexProps</h1>
-      {users.map((user, index) => (
-        <UserProfileCard key={index} {...user} />
-      ))}
+      <div className='flex'>
+        {users.map((user, index) => (
+          <UserProfileCard key={index} {...user} />
+        ))}
+      </div>
     </div>
   );
 }
