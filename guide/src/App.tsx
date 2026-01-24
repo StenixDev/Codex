@@ -1,8 +1,7 @@
 import BasicProps from './components/BasicProps';
 import ChildrenProps from './components/ChildrenProps';
 import ComplexProps from './components/ComplexProps';
-import PricingSection from './components/PricingSection';
-import ProductModal from './components/ProductModal';
+
 import RefProps from './components/RefProps';
 import ThemeToggler from './components/ThemeToggler';
 
@@ -44,7 +43,6 @@ function AppContent() {
     <div
       className={`min-h-screen bg-gray-800 text-3xl text-white font-bold p-5`}
     >
-      <PricingSection />
       <Navigation />
       <div className='container mx-auto px-4 py-8'>
         <header
