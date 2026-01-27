@@ -1,14 +1,7 @@
 import { ShoppingCart } from 'lucide-react';
-type Product = {
-  name: string;
-  price: number;
-};
-type ProductCardProps = {
-  product: Product;
-  onAddToCart: (product: Product) => void;
-};
+import type { ProductProps } from '../types';
 
-function ProductCard({ product, onAddToCart }: ProductCardProps) {
+function ProductCard({ product, onAddToCart }: ProductProps) {
   return (
     <div className='product-cart'>
       <h3>{product.name}</h3>

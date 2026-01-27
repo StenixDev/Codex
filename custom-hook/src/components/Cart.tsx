@@ -1,6 +1,14 @@
 import CartItem from './CartItem';
+import type { Product } from '../types';
 
-function Cart({ cart, onUpdateQuantity, onRemove, total }) {
+type CartProps = {
+  cart: Product[];
+  onUpdateQuantity: () => void;
+  onRemove: () => void;
+  total: number;
+};
+
+function Cart({ cart, onUpdateQuantity, onRemove, total }: CartProps) {
   if (cart.length === 0)
     return <div className='cart empty'>Your Cart is Empty</div>;
 

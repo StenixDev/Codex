@@ -1,6 +1,13 @@
 import { Minus, Plus, Trash } from 'lucide-react';
+import type { CartType, Product } from '../types';
 
-function CartItem({ item, onUpdateQuantity, onRemove }) {
+type CartItemProp = {
+  item: CartType;
+  onUpdateQuantity: (id: Product['id'], quantity: number) => void;
+  onRemove: (id: Product['id']) => void;
+};
+
+function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProp) {
   return (
     <div className='cart-item'>
       <div className='item-details'>
