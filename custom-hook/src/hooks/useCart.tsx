@@ -19,8 +19,6 @@ function useCart() {
     }
   });
 
-  console.log(cart);
-
   useEffect(() => {
     try {
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -30,7 +28,20 @@ function useCart() {
   }, [cart]);
 
   useEffect(() => {
-    const handleStorage = (e) => {};
+    const handleStorage = (e: StorageEvent) => {
+      if (e.key === 'cart') {
+        try {
+          const newCart = JSON.parse(e.newValue || '[]');
+          setCart(newCart);
+        } catch (error) {
+          console.error('failed to parse from local storage', error);
+        }
+      }
+    };
+
+    window.addEventListener('storage', handleStorage);
+
+    return () => window.removeEventListener('storage', handleStorage);
   }, []);
 }
 export default useCart;
