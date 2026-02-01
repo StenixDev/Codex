@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import type { CartType } from '../types';
 
@@ -54,5 +54,28 @@ function useCart() {
       return [...currentCart, { ...product, quantity: 1 }];
     });
   }
+
+  function removeFromCart(id: number) {
+    setCart((currentCart) => currentCart.filter((item) => item.id !== id));
+  }
+
+  function updateQuantity(id: number, quantity: number) {
+    if (quantity < 1) return;
+
+    setCart((currentCart) =>
+      currentCart.map((item) =>
+        item.id === id ? { ...item, quantity: quantity } : item,
+      ),
+    );
+  }
+
+  const total = useMemo(() => {
+    return Number(
+      cart.reduce((sum, item) => {
+        const itemTotal = item.price * (item.quantity || 0);
+        return sum + itemTotal;
+      }, 0),
+    );
+  }, [cart]);
 }
 export default useCart;
