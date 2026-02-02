@@ -9,5 +9,5 @@ export type ProductProps = {
 };
 
 export type CartType = Product & {
-  quantity: number;
+  quantity?: number;
 };

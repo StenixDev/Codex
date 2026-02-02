@@ -77,5 +77,12 @@ function useCart() {
       }, 0),
     );
   }, [cart]);
+
+  return {
+    total,
+    updateQuantity,
+    removeFromCart,
+    addToCart,
+  };
 }
 export default useCart;
