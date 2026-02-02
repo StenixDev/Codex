@@ -2,9 +2,10 @@ import ProductCard from './components/ProductCard';
 import { products } from './data/product';
 import useCart from './hooks/useCart';
 import './App.css';
+import Cart from './components/Cart';
 
 function App() {
-  const { total, updateQuantity, removeFromCart, addToCart } = useCart();
+  const { total, updateQuantity, removeFromCart, addToCart, cart } = useCart();
   return (
     <>
       <div className='app'>
@@ -20,6 +21,12 @@ function App() {
             />
           ))}
         </main>
+        <Cart
+          cart={cart}
+          onRemove={removeFromCart}
+          total={total}
+          onUpdateQuantity={updateQuantity}
+        />
       </div>
     </>
   );

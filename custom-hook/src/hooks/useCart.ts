@@ -80,6 +80,7 @@ function useCart() {
 
   return {
     total,
+    cart,
     updateQuantity,
     removeFromCart,
     addToCart,
