@@ -12,21 +12,32 @@ function App() {
         <header>
           <h1>Shopping Cart</h1>
         </header>
-        <main className='products'>
-          {products.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAddToCart={addToCart}
-            />
-          ))}
-        </main>
-        <Cart
-          cart={cart}
-          onRemove={removeFromCart}
-          total={total}
-          onUpdateQuantity={updateQuantity}
-        />
+
+        <div className='flex'>
+          <div className='flex-1'>
+            <main>
+              <div className='products'>
+                {products.map((product) => (
+                  <ProductCard
+                    key={product.id}
+                    product={product}
+                    onAddToCart={addToCart}
+                  />
+                ))}
+              </div>
+              <div>
+                <Cart
+                  cart={cart}
+                  onRemove={removeFromCart}
+                  total={total}
+                  onUpdateQuantity={updateQuantity}
+                />
+              </div>
+            </main>
+          </div>
+        </div>
+
+        <div></div>
       </div>
     </>
   );

@@ -46,7 +46,7 @@ function useCart() {
       if (existingItem) {
         return currentCart.map((item) =>
           item.id === product.id
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: (item.quantity ?? 0) + 1 }
             : item,
         );
       }
@@ -55,11 +55,11 @@ function useCart() {
     });
   }
 
-  function removeFromCart(id: number) {
+  function removeFromCart(id?: number) {
     setCart((currentCart) => currentCart.filter((item) => item.id !== id));
   }
 
-  function updateQuantity(id: number, quantity: number) {
+  function updateQuantity(id?: number, quantity: number = 0) {
     if (quantity < 1) return;
 
     setCart((currentCart) =>

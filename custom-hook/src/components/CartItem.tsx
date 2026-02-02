@@ -3,8 +3,8 @@ import type { CartType, Product } from '../types';
 
 type CartItemProp = {
   item: CartType;
-  onUpdateQuantity: (id: Product['id'], quantity: number) => void;
-  onRemove: (id: Product['id']) => void;
+  onUpdateQuantity?: (id: Product['id'], quantity: number) => void;
+  onRemove?: (id: Product['id']) => void;
 };
 
 function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProp) {
@@ -14,19 +14,27 @@ function CartItem({ item, onUpdateQuantity, onRemove }: CartItemProp) {
         <h4>{item.name}</h4>
         <p>{item.price}</p>
         <div className='quantity-controls'>
-          <button onClick={() => onUpdateQuantity(item.id, item.quantity - 1)}>
+          <button
+            onClick={() =>
+              onUpdateQuantity?.(item.id, (item.quantity ?? 0) - 1)
+            }
+          >
             <Minus />
           </button>
 
           <span>{item.quantity}</span>
 
-          <button onClick={() => onUpdateQuantity(item.id, item.quantity + 1)}>
+          <button
+            onClick={() =>
+              onUpdateQuantity?.(item.id, (item.quantity ?? 0) + 1)
+            }
+          >
             <Plus />
           </button>
         </div>
       </div>
 
-      <button className='remove-btn' onClick={() => onRemove(item.id)}>
+      <button className='remove-btn' onClick={() => onRemove?.(item.id)}>
         <Trash />
       </button>
     </div>

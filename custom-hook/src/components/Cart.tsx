@@ -3,8 +3,8 @@ import type { Product } from '../types';
 
 type CartProps = {
   cart: Product[];
-  onUpdateQuantity: () => void;
-  onRemove: () => void;
+  onUpdateQuantity?: () => void;
+  onRemove?: () => void;
   total: number;
 };
 
