@@ -2,6 +2,7 @@ import { useCounterStore } from '../store/counterStore';
 
 function Counter() {
   const { count, inc, dec, reset } = useCounterStore();
+  console.log('rendered');
   return (
     <div>
       <span>{count}</span>
