@@ -1,5 +1,6 @@
 import Counter from './components/Counter';
 import NavBar from './components/NavBar';
+import Posts from './components/Posts';
 
 function App() {
   return (
@@ -8,6 +9,8 @@ function App() {
       Zustand
       <hr />
       <Counter />
+      <hr />
+      <Posts />
     </div>
   );
 }

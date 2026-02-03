@@ -11,6 +11,7 @@ interface PostsStore {
   posts: Post[];
   loading: boolean;
   error: null | string | undefined;
+  fetchPosts: () => Promise<void>;
 }
 
 export const usePostsStore = create<PostsStore>()((set) => ({
@@ -21,9 +22,8 @@ export const usePostsStore = create<PostsStore>()((set) => ({
     set({ loading: true, error: null });
 
     try {
-      const res = await fetch(
-        'https://jsonplaceholder.typicode.com/posts?_limit=5',
-      );
+      const res = await fetch('https://jsonplaceholder.typicode.com/po');
+
       const data = await res.json();
       set({ posts: data, loading: false });
     } catch (error) {
