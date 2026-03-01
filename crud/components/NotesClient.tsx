@@ -1,11 +1,28 @@
 'use client';
 
 import { useState } from 'react';
+import { Types } from 'mongoose';
 
-function NotesClient() {
+interface Note {
+  _id: Types.ObjectId;
+  title: string;
+  content: string;
+  createdAt: Date;
+  updatedAt: Date;
+  __v: number;
+}
+
+interface NotesClientProps {
+  noteInit: Note[];
+}
+
+function NotesClient({ noteInit }: NotesClientProps) {
+  const [notes, setNotes] = useState([...noteInit]);
   const [title, setTitle] = useState<string>('');
   const [content, setContent] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
+
+  console.log(notes);
 
   async function createNote(e) {
     e.preventDefault();
@@ -24,6 +41,8 @@ function NotesClient() {
       const result = await response.json();
 
       console.log(result);
+      setTitle('');
+      setContent('');
 
       setLoading(false);
     } catch (error) {}
@@ -59,6 +78,10 @@ function NotesClient() {
           </button>
         </div>
       </form>
+
+      <div className='space-y-4'>
+        <h2 className='text-xl font-semibold'>your notes {notes.length}</h2>
+      </div>
     </div>
   );
 }
