@@ -55,6 +55,24 @@ function NotesClient({ noteInit }: NotesClientProps) {
     }
   }
 
+  async function deleteNote(id: Types.ObjectId) {
+    try {
+      const response = await fetch(`http://localhost:3000/api/notes/${id}`, {
+        method: 'DELETE',
+      });
+
+      const result = await response.json();
+
+      if (result.success) {
+        setNotes(notes.filter((note) => note._id !== id));
+        toast.success('notes deleted successfully');
+      }
+    } catch (error) {
+      console.error('error deleted note', error);
+      toast.error('something went wrong');
+    }
+  }
+
   return (
     <div className='space-y-6'>
       <form onSubmit={createNote} className='bg-white p-6 rounded-lg shadow-md'>
@@ -101,10 +119,13 @@ function NotesClient({ noteInit }: NotesClientProps) {
               <div className='flex justify-between items-start mb-2'>
                 <h3 className='text-lg font-semibold'>{note.title}</h3>
                 <div className='flex gap-2'>
-                  <button className='text-blue-500 hover:text-blue-700 text-sm'>
+                  <button className='text-blue-500 hover:text-blue-700 text-sm cursor-pointer'>
                     Edit
                   </button>
-                  <button className='text-red-500 hover:text-red-700 text-sm'>
+                  <button
+                    onClick={() => deleteNote(note._id)}
+                    className='text-red-500 hover:text-red-700 text-sm  cursor-pointer'
+                  >
                     Delete
                   </button>
                 </div>
