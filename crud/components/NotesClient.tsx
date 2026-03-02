@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Types } from 'mongoose';
+import toast from 'react-hot-toast';
 
 interface Note {
   _id: Types.ObjectId;
@@ -45,10 +46,13 @@ function NotesClient({ noteInit }: NotesClientProps) {
 
         setTitle('');
         setContent('');
+        toast.success('notes successfully addded');
       }
-
+    } catch (error) {
+      toast.error('There is an error submitting your note');
+    } finally {
       setLoading(false);
-    } catch (error) {}
+    }
   }
 
   return (
