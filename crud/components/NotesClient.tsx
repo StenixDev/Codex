@@ -40,9 +40,12 @@ function NotesClient({ noteInit }: NotesClientProps) {
 
       const result = await response.json();
 
-      console.log(result);
-      setTitle('');
-      setContent('');
+      if (result.success) {
+        setNotes([...notes, result.data]);
+
+        setTitle('');
+        setContent('');
+      }
 
       setLoading(false);
     } catch (error) {}
@@ -81,6 +84,43 @@ function NotesClient({ noteInit }: NotesClientProps) {
 
       <div className='space-y-4'>
         <h2 className='text-xl font-semibold'>your notes {notes.length}</h2>
+        {notes.length === 0 ? (
+          <p className='text-gray-500'>
+            no notes yet. create your first note above
+          </p>
+        ) : (
+          notes.map((note) => (
+            <div
+              key={note._id.toString()}
+              className='bg-white p-5 rounded-lg shadow-md'
+            >
+              <div className='flex justify-between items-start mb-2'>
+                <h3 className='text-lg font-semibold'>{note.title}</h3>
+                <div className='flex gap-2'>
+                  <button className='text-blue-500 hover:text-blue-700 text-sm'>
+                    Edit
+                  </button>
+                  <button className='text-red-500 hover:text-red-700 text-sm'>
+                    Delete
+                  </button>
+                </div>
+              </div>
+
+              <p className='text-gray-700 mb-2'>{note.content}</p>
+              <div>
+                <p className='text-gray-500 text-sm'>
+                  Created: {new Date(note.createdAt).toLocaleString()}
+                </p>
+
+                {note.createdAt !== note.updatedAt && (
+                  <p className='text-sm text-gray-500'>
+                    Updated: {new Date(note.updatedAt).toLocaleString()}
+                  </p>
+                )}
+              </div>
+            </div>
+          ))
+        )}
       </div>
     </div>
   );

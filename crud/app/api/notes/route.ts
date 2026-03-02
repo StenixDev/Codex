@@ -7,7 +7,7 @@ import { NextResponse, NextRequest } from 'next/server';
 export async function GET(request: NextRequest) {
   try {
     await dbConnect();
-    const notes = await Note.find({});
+    const notes = await Note.find({}).sort({ createdAt: -1 });
 
     return NextResponse.json({
       success: true,
