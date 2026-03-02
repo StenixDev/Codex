@@ -1,15 +1,16 @@
 import dbConnect from '@/lib/db';
 
 import Note from '@/models/Notes';
+import { Types } from 'mongoose';
 
 import { NextResponse, NextRequest } from 'next/server';
 
 export async function PUT(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: { id: Types.ObjectId } },
 ) {
   try {
-    const { id } = params;
+    const { id } = await params;
 
     const body = await request.json();
     const { title, content } = body;
@@ -19,7 +20,10 @@ export async function PUT(
     const updatedNote = await Note.findByIdAndUpdate(
       id,
       { title, content, updatedAt: new Date() },
-      { new: true, runValidators: true },
+      {
+        returnDocument: 'after', // ✅ new replacement
+        runValidators: true,
+      },
     );
 
     if (!updatedNote) {
@@ -34,7 +38,10 @@ export async function PUT(
       data: updatedNote,
     });
   } catch (error) {
-    return NextResponse.json({ success: false, error: error }, { status: 400 });
+    return NextResponse.json(
+      { success: false, error: 'Failed to update note' },
+      { status: 400 },
+    );
   }
 }
 

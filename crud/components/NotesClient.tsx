@@ -82,8 +82,38 @@ function NotesClient({ noteInit }: NotesClientProps) {
     setEditContent(note.content);
   }
 
-  async function updateNote(noteId) {
-    console.log(noteId);
+  async function updateNote(noteId: Types.ObjectId) {
+    if (!editTitle.trim() || !editContent.trim()) return;
+
+    setLoading(true);
+
+    try {
+      const response = await fetch(`/api/notes/${noteId}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title: editTitle,
+          content: editContent,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        // 🔥 Replace the updated note
+        setNotes((prevNotes) =>
+          prevNotes.map((note) => (note._id === noteId ? result.data : note)),
+        );
+
+        toast.success('Note successfully updated');
+        setNoteId(null); // exit edit mode
+      }
+    } catch (error) {
+      toast.error('Failed to update note');
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -127,7 +157,10 @@ function NotesClient({ noteInit }: NotesClientProps) {
         ) : (
           notes.map((note) =>
             note._id === noteId ? (
-              <div key={note._id} className='bg-white p-6 rounded-lg shadow-md'>
+              <div
+                key={note._id.toString()}
+                className='bg-white p-6 rounded-lg shadow-md'
+              >
                 <form onSubmit={() => updateNote(note._id)}>
                   <h2 className='font-bold mb-5'>Edit note</h2>
 
