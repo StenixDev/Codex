@@ -1,11 +1,2 @@
-'use client';
-
-import { useParams } from 'next/navigation';
-
-function ProductPage() {
-  const params = useParams();
-
-  console.log(params);
-  return <div>ProductPage</div>;
-}
+function ProductPage() {}
 export default ProductPage;
