@@ -1,17 +1,10 @@
 import type { Metadata } from 'next';
-import { Geist, Geist_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import './globals.css';
 import { Toaster } from 'react-hot-toast';
-import Navigation from '@/components/Navigation';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
-});
-
-const geistMono = Geist_Mono({
-  variable: '--font-geist-mono',
-  subsets: ['latin'],
+const Neuropol = localFont({
+  src: '../public/fonts/Neuropol.otf',
 });
 
 export const metadata: Metadata = {
@@ -26,11 +19,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang='en'>
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`antialiased`}>
         <Toaster />
-        <Navigation />
+
+        <h1 className={`${Neuropol.className} text-8xl`}>GoPro</h1>
         {children}
       </body>
     </html>
