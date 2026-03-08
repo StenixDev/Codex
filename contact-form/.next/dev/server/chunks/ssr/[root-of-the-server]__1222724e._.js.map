@@ -1,0 +1,6 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 18, "column": 0}, "map": {"version":3,"sources":["file:///C:/Users/Stephen/Desktop/Dev/Codex/contact-form/app/page.tsx"],"sourcesContent":["function Home() {\n  return (\n    <main className='min-h-screen py-12 px-4'>\n      <div className='container mx-auto'>\n        <div className='text-center mb-12'>\n          <h1 className='text-4xl font-bold mb-4'>Server Action</h1>\n          <p className='text-xl text-gray-600 '>\n            {' '}\n            ContactForm with MongoDB and revalidation{' '}\n          </p>\n        </div>\n      </div>\n    </main>\n  );\n}\nexport default Home;\n"],"names":[],"mappings":";;;;;;AAAA,SAAS;IACP,qBACE,8OAAC;QAAK,WAAU;kBACd,cAAA,8OAAC;YAAI,WAAU;sBACb,cAAA,8OAAC;gBAAI,WAAU;;kCACb,8OAAC;wBAAG,WAAU;kCAA0B;;;;;;kCACxC,8OAAC;wBAAE,WAAU;;4BACV;4BAAI;4BACqC;;;;;;;;;;;;;;;;;;;;;;;AAMtD;uCACe"}}]
+}
