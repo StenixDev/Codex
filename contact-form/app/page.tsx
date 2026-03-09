@@ -12,6 +12,7 @@ function Home() {
           </p>
         </div>
         <ContactForm />
+        Test!
       </div>
     </main>
   );
