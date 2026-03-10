@@ -1,17 +1,34 @@
 'use client';
 
+import { createContact } from '@/action';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
-import { useState } from 'react';
+import { useActionState } from 'react';
+import { useFormStatus } from 'react-dom';
+
+const initialState = {
+  success: false,
+  message: '',
+  name: '',
+  email: '',
+  subject: '',
+};
+
+function SubmitButton() {
+  const { pending } = useFormStatus();
+
+  return (
+    <Button className='w-full' disabled={pending}>
+      {pending ? 'Submitting...' : 'Submit'}
+    </Button>
+  );
+}
 
 function ContactForm() {
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [message, setMessage] = useState<string>('');
-
-  async function onSubmit(formData: FormData) {}
+  const [state, formAction] = useActionState(createContact, initialState);
 
   return (
     <div>
@@ -19,16 +36,20 @@ function ContactForm() {
         <CardHeader>
           <CardTitle>Contact Us</CardTitle>
         </CardHeader>
+
         <CardContent>
-          <form id='contact-form' className=''>
+          {state.message && <p>{state.message}</p>}
+
+          <form action={formAction}>
             <div className='flex gap-2 space-y-5'>
               <div className='flex-1'>
                 <div className='flex gap-2'>
-                  <Label htmlFor='email'>Name</Label>
+                  <Label htmlFor='name'>Name</Label>
                   <Input
                     id='name'
+                    name='name'
                     type='text'
-                    placeholder='Enter your mane'
+                    placeholder='Enter your name'
                     required
                   />
                 </div>
@@ -39,6 +60,7 @@ function ContactForm() {
                   <Label htmlFor='email'>Email</Label>
                   <Input
                     id='email'
+                    name='email'
                     type='email'
                     placeholder='m@example.com'
                     required
@@ -51,6 +73,7 @@ function ContactForm() {
               <Label htmlFor='subject'>Subject</Label>
               <Input
                 id='subject'
+                name='subject'
                 type='text'
                 placeholder='Enter Subject'
                 required
@@ -60,13 +83,20 @@ function ContactForm() {
             <div className='flex items-start gap-2 mb-2'>
               <Label htmlFor='message'>Message</Label>
 
-              <Textarea id='message' placeholder='Your Message' required />
+              <Textarea
+                id='message'
+                name='message'
+                placeholder='Your Message'
+                required
+              />
             </div>
-            <Button className='w-full'>Submit</Button>
+
+            <SubmitButton />
           </form>
         </CardContent>
       </Card>
     </div>
   );
 }
+
 export default ContactForm;

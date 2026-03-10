@@ -53,6 +53,6 @@ const ContactSchema = new mongoose.Schema<Contact>(
 );
 
 const Contact =
-  mongoose.models.Note || mongoose.model<Contact>('Contact', ContactSchema);
+  mongoose.models.Contact || mongoose.model<Contact>('contacts', ContactSchema);
 
 export default Contact;
