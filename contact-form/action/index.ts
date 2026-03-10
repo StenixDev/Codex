@@ -14,6 +14,16 @@ type FormState = {
   success: boolean;
 };
 
+export async function getContact() {
+  try {
+    await dbConnect();
+    const data = await Contact.find().lean();
+    return data;
+  } catch (error) {
+    throw error;
+  }
+}
+
 export async function createContact(
   prevState: FormState,
   formData: FormData,
@@ -66,8 +76,6 @@ export async function createContact(
 
     photoPath = `/uploads/${filename}`;
   }
-
-  console.log(photoPath);
 
   try {
     await Contact.create({

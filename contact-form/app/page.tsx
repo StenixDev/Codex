@@ -1,4 +1,6 @@
 import ContactForm from '@/component/contact-form';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 function Home() {
   return (
@@ -10,6 +12,15 @@ function Home() {
             {' '}
             ContactForm with MongoDB and revalidation{' '}
           </p>
+          <Link href='/contacts'>
+            <Button
+              size='lg'
+              className='my-5 cursor-pointer '
+              variant='outline'
+            >
+              All Contacts
+            </Button>
+          </Link>
         </div>
         <ContactForm />
       </div>

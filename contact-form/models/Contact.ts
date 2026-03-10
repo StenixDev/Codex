@@ -1,47 +1,46 @@
-import mongoose from 'mongoose';
+import mongoose, { Document, Model } from 'mongoose';
 
-interface Contact {
+// 1. Create a TypeScript interface that extends Document
+export interface IContact extends Document {
   name: string;
   email: string;
   subject: string;
   message: string;
-  status: string;
+  status: 'new' | 'read' | 'replied';
+  photo?: string | null;
   createdAt: Date;
   updatedAt: Date;
-  photo?: string | null;
 }
 
-const ContactSchema = new mongoose.Schema<Contact>(
+// 2. Define the schema
+const ContactSchema = new mongoose.Schema<IContact>(
   {
     name: {
       type: String,
       required: [true, 'Name is required'],
-      maxlength: [100, 'cannot be exceed 100 characters'],
+      maxlength: [100, 'Cannot exceed 100 characters'],
       trim: true,
     },
     email: {
       type: String,
       required: [true, 'Email is required'],
       lowercase: true,
-      maxlength: [100, 'cannot be exceed 100 characters'],
+      maxlength: [100, 'Cannot exceed 100 characters'],
       trim: true,
       match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address'],
     },
-
     subject: {
       type: String,
       required: [true, 'Subject is required'],
-      maxlength: [100, 'cannot be exceed 100 characters'],
+      maxlength: [100, 'Cannot exceed 100 characters'],
       trim: true,
     },
-
     message: {
       type: String,
       required: [true, 'Message is required'],
-      maxlength: [100, 'cannot be exceed 100 characters'],
+      maxlength: [1000, 'Cannot exceed 1000 characters'], // increased length for message
       trim: true,
     },
-
     status: {
       type: String,
       enum: ['new', 'read', 'replied'],
@@ -57,7 +56,8 @@ const ContactSchema = new mongoose.Schema<Contact>(
   },
 );
 
-const Contact =
-  mongoose.models.Contact || mongoose.model<Contact>('contacts', ContactSchema);
+// 3. Fix "Cannot overwrite model" issue
+const Contact: Model<IContact> =
+  mongoose.models.Contact || mongoose.model<IContact>('Contact', ContactSchema);
 
 export default Contact;
