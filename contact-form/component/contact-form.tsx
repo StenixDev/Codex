@@ -91,6 +91,8 @@ function ContactForm() {
               />
             </div>
 
+            <input type='file' name='photo' accept='image/*' />
+
             <SubmitButton />
           </form>
         </CardContent>

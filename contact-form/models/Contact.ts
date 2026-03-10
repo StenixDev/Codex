@@ -8,6 +8,7 @@ interface Contact {
   status: string;
   createdAt: Date;
   updatedAt: Date;
+  photo?: string | null;
 }
 
 const ContactSchema = new mongoose.Schema<Contact>(
@@ -45,6 +46,10 @@ const ContactSchema = new mongoose.Schema<Contact>(
       type: String,
       enum: ['new', 'read', 'replied'],
       default: 'new',
+    },
+    photo: {
+      type: String,
+      default: null,
     },
   },
   {
