@@ -5,7 +5,7 @@ import path from 'path';
 
 import dbConnect from '@/lib/db';
 import Contact from '@/models/Contact';
-import mongoose from 'mongoose';
+
 import { revalidatePath } from 'next/cache';
 
 type FormState = {
@@ -19,7 +19,16 @@ type FormState = {
 export async function getContact() {
   try {
     await dbConnect();
-    const data = await Contact.find().lean();
+    const data = await Contact.find()
+      .lean()
+      .sort({ createdAt: -1 })
+      .lean()
+      .then((docs) =>
+        docs.map((doc) => ({
+          ...doc,
+          _id: doc._id.toString(),
+        })),
+      );
     return data;
   } catch (error) {
     throw error;
@@ -94,13 +103,10 @@ export async function createContact(
   }
 }
 
-export async function updateContact(
-  id: mongoose.Types.ObjectId,
-  status: string,
-) {
+export async function updateContact(id: string, status: string) {
   try {
     await dbConnect();
-    await Contact.findByIdAndUpdate(id, { status }).lean();
+    await Contact.findByIdAndUpdate(id, { status });
 
     console.log('updated');
 

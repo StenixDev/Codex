@@ -34,7 +34,7 @@ async function ContactList() {
                   <form
                     action={async () => {
                       'use server';
-                      await updateContact(contact._id, 'read');
+                      await updateContact(contact._id.toString(), 'read');
                     }}
                   >
                     <Button type='submit'>Read</Button>
@@ -44,7 +44,7 @@ async function ContactList() {
                   <form
                     action={async () => {
                       'use server';
-                      await updateContact(contact._id, 'replied');
+                      await updateContact(contact._id.toString(), 'replied');
                     }}
                   >
                     <Button type='submit'>Reply</Button>
