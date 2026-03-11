@@ -5,6 +5,8 @@ import path from 'path';
 
 import dbConnect from '@/lib/db';
 import Contact from '@/models/Contact';
+import mongoose from 'mongoose';
+import { revalidatePath } from 'next/cache';
 
 type FormState = {
   name?: string;
@@ -89,5 +91,23 @@ export async function createContact(
     return { success: true, message: 'Message sent successfully' };
   } catch (error) {
     return { success: false, message: `Failed to send message ${error}` };
+  }
+}
+
+export async function updateContact(
+  id: mongoose.Types.ObjectId,
+  status: string,
+) {
+  try {
+    await dbConnect();
+    await Contact.findByIdAndUpdate(id, { status }).lean();
+
+    console.log('updated');
+
+    revalidatePath('/contacts');
+
+    return { success: true };
+  } catch (error) {
+    return { success: false, error: 'something went wrong' };
   }
 }

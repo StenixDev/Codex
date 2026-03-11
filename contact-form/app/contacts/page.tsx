@@ -1,4 +1,4 @@
-import { getContact } from '@/action';
+import { getContact, updateContact } from '@/action';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -30,8 +30,28 @@ async function ContactList() {
             <CardContent>
               <div className='flex justify-between items-center'>
                 <div>{contact.message}</div>
-                {contact.status === 'new' && <Button>Read</Button>}
-                {contact.status === 'read' && <Button>Reply</Button>}
+                {contact.status === 'new' && (
+                  <form
+                    action={async () => {
+                      'use server';
+                      await updateContact(contact._id, 'read');
+                    }}
+                  >
+                    <Button type='submit'>Read</Button>
+                  </form>
+                )}
+                {contact.status === 'read' && (
+                  <form
+                    action={async () => {
+                      'use server';
+                      await updateContact(contact._id, 'replied');
+                    }}
+                  >
+                    <Button type='submit'>Reply</Button>
+                  </form>
+                )}
+
+                {contact.status === 'replied' && <p>Replied</p>}
               </div>
             </CardContent>
             <CardFooter>{contact.createdAt.toISOString()}</CardFooter>
