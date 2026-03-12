@@ -1,4 +1,5 @@
 import ContactForm from '@/component/contact-form';
+
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 
@@ -22,6 +23,7 @@ function Home() {
             </Button>
           </Link>
         </div>
+
         <ContactForm />
       </div>
     </main>

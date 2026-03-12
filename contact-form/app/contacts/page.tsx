@@ -1,4 +1,5 @@
 import { getContact, updateContact } from '@/action';
+import ContactStats from '@/component/contact-stats';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import {
@@ -22,6 +23,8 @@ async function ContactList() {
         </Link>
         <Badge>{contacts.length} Contacts</Badge>
       </div>
+
+      <ContactStats />
 
       {contacts.map((contact) => (
         <div key={contact._id.toString()}>

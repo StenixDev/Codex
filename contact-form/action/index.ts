@@ -6,7 +6,7 @@ import path from 'path';
 import dbConnect from '@/lib/db';
 import Contact from '@/models/Contact';
 
-import { revalidatePath } from 'next/cache';
+import { revalidatePath, revalidateTag, unstable_cache } from 'next/cache';
 
 type FormState = {
   name?: string;
@@ -96,6 +96,8 @@ export async function createContact(
       message,
       photo: photoPath,
     });
+    revalidatePath('/contacts');
+    revalidateTag('contact-stats', {});
 
     return { success: true, message: 'Message sent successfully' };
   } catch (error) {
@@ -109,11 +111,30 @@ export async function updateContact(id: string, status: string) {
     await Contact.findByIdAndUpdate(id, { status });
 
     console.log('updated');
-
-    revalidatePath('/contacts');
-
+    revalidateTag('contact-stats', {});
     return { success: true };
   } catch (error) {
     return { success: false, error: 'something went wrong' };
   }
 }
+
+export const getContactStats = unstable_cache(
+  async () => {
+    await dbConnect();
+    const totalCount = await Contact.countDocuments();
+    const newCount = await Contact.countDocuments({ status: 'new' });
+    const readCount = await Contact.countDocuments({ status: 'read' });
+    const repliedCount = await Contact.countDocuments({ status: 'replied' });
+
+    return {
+      total: totalCount,
+      new: newCount,
+      read: readCount,
+      replied: repliedCount,
+    };
+  },
+  ['contact-stats'],
+  {
+    tags: ['contact-stats'],
+  },
+);
